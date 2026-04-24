@@ -91,14 +91,18 @@ app.get("/safe-login", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "safe-login.html"));
 });
 
-app.post("/api/login-safe", async (req, res) => {});
+app.post("/api/login-safe", async (req, res) => {
+  alert(":) in progress");
+});
 
 // Login (Vulnerable to SQLi)
 app.get("/dangerous-login", (req, res) => {
   res.sendFile(path.join(__dirname), "public", "dangerous-login.html");
 });
 
-app.post("/api/login-dangerous", async (req, res) => {});
+app.post("/api/login-dangerous", async (req, res) => {
+  alert(":) in progress");
+});
 
 // ==============================
 // Start your engines
