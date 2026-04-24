@@ -16,7 +16,7 @@ const path = require("path");
 // create our express server and assign it to `app`
 const app = express();
 // use port 3000 for localhost to access when running locally
-const port = 3000();
+const port = 3000;
 
 // used in expressJs servers to parse JSON and put it in the request body as a JS object
 app.use(express.json());
@@ -35,6 +35,7 @@ const db = new sqlite3.Database("./demo.db");
 // ==============================
 
 // create our users table
+// passwords are stored as plaintext to show how data exfil can be exacerbated without proper data obfuscation
 db.serialize(() => {
   db.run(`
     CREATE TABLE IF NOT EXISTS users (
@@ -49,13 +50,41 @@ db.serialize(() => {
 // Routing and endpoints
 // ==============================
 
-// Registration
+// Registration (Safe from SQLi)
 app.get("/register", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "register.html"));
-  }),
-);
+  res.sendFile(path.join(__dirname, "public", "register.html"));
+});
 
-app.post("/api/register", async (req, res) => {});
+app.post("/api/register", async (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    alert("Username and password required.");
+    return res.status(400).json({ message: "Username and password required." });
+  }
+
+  try {
+    db.run(
+      "INSERT INTO users (username, password) VALUES (?, ?)",
+      [username, password],
+      function (e) {
+        if (e) {
+          alert("User already exists OR invalid credentials.");
+          return res
+            .status(400)
+            .json({ message: "User already exists OR invalid credentials." });
+        }
+
+        res.json({
+          message: "Registration successful.",
+          userId: this.lastID,
+        });
+      },
+    );
+  } catch {
+    res.status(500).json({ message: "Something went wrong." });
+  }
+});
 
 // Login (Safe from SQLi)
 app.get("/safe-login", (req, res) => {
@@ -66,8 +95,8 @@ app.post("/api/login-safe", async (req, res) => {});
 
 // Login (Vulnerable to SQLi)
 app.get("/dangerous-login", (req, res) => {
-  res.sendFile(path.join(__dirname), "public", "dangerous-login.html"));
-})
+  res.sendFile(path.join(__dirname), "public", "dangerous-login.html");
+});
 
 app.post("/api/login-dangerous", async (req, res) => {});
 
