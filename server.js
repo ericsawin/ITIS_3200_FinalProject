@@ -1,4 +1,6 @@
-// Dependencies required
+// ==============================
+// Dependencies
+// ==============================
 
 // expressJs server
 const express = require("express");
@@ -6,6 +8,10 @@ const express = require("express");
 const sqlite3 = require("sqlite3").verbose();
 // path (allows us to use our file structure; our html pages and css sheets will be in the '/public' dir)
 const path = require("path");
+
+// ==============================
+// Server Setup
+// ==============================
 
 // create our express server and assign it to `app`
 const app = express();
@@ -17,9 +23,18 @@ app.use(express.json());
 // serve our `/public' directory as static assets`
 app.use(express.static(path.join(__dirname, "public")));
 
+// ==============================
+// Database Connection
+// ==============================
+
 // assign our demonstration database as a new instance called `db`
 const db = new sqlite3.Database("./demo.db");
 
+// ==============================
+// DB initialization and seeding
+// ==============================
+
+// create our users table
 db.serialize(() => {
   db.run(`
     CREATE TABLE IF NOT EXISTS users (
@@ -28,4 +43,37 @@ db.serialize(() => {
       password TEXT NOT NULL
     )
   `);
+});
+
+// ==============================
+// Routing and endpoints
+// ==============================
+
+// Registration
+app.get("/register", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "register.html"));
+  }),
+);
+
+app.post("/api/register", async (req, res) => {});
+
+// Login (Safe from SQLi)
+app.get("/safe-login", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "safe-login.html"));
+});
+
+app.post("/api/login-safe", async (req, res) => {});
+
+// Login (Vulnerable to SQLi)
+app.get("/dangerous-login", (req, res) => {
+  res.sendFile(path.join(__dirname), "public", "dangerous-login.html"));
+})
+
+app.post("/api/login-dangerous", async (req, res) => {});
+
+// ==============================
+// Start your engines
+// ==============================
+app.listen(port, () => {
+  console.log(`Server running: http://localhost:${port}`);
 });
