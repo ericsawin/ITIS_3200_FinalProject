@@ -19,3 +19,13 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // assign our demonstration database as a new instance called `db`
 const db = new sqlite3.Database("./demo.db");
+
+db.serialize(() => {
+  db.run(`
+    CREATE TABLE IF NOT EXISTS users (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      username TEXT UNIQUE NOT NULL,
+      password TEXT NOT NULL
+    )
+  `);
+});
