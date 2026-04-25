@@ -59,7 +59,6 @@ app.post("/api/register", async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    alert("Username and password required.");
     return res.status(400).json({ message: "Username and password required." });
   }
 
@@ -69,7 +68,6 @@ app.post("/api/register", async (req, res) => {
       [username, password],
       function (err) {
         if (err) {
-          alert("User already exists OR invalid credentials.");
           return res
             .status(400)
             .json({ message: "User already exists OR invalid credentials." });
@@ -118,9 +116,7 @@ app.get("/dangerous-login", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "dangerous-login.html"));
 });
 
-app.post("/api/login-dangerous", async (req, res) => {
-  alert(":) in progress");
-});
+app.post("/api/login-dangerous", async (req, res) => {});
 
 // ==============================
 // Start your engines
