@@ -67,8 +67,8 @@ app.post("/api/register", async (req, res) => {
     db.run(
       "INSERT INTO users (username, password) VALUES (?, ?)",
       [username, password],
-      function (e) {
-        if (e) {
+      function (err) {
+        if (err) {
           alert("User already exists OR invalid credentials.");
           return res
             .status(400)
@@ -95,7 +95,7 @@ app.post("/api/login-safe", async (req, res) => {
   const { username, password } = req.body;
 
   db.get("SELECT * FROM users WHERE USERNAME = ?", [username], (err, user) => {
-    if (e) {
+    if (err) {
       return res.status(500).json({ message: "Something went wrong." });
     }
 
