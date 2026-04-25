@@ -1,4 +1,4 @@
-async function handleLogin(endpoing) {
+async function handleLogin(endpoint) {
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
   const loginMessage = document.getElementById("message");
@@ -31,3 +31,29 @@ async function handleRegister() {
 
   const data = await response.json();
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const safeForm = document.getElementById("safeLoginForm");
+  if (safeForm) {
+    safeForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      handleLogin("/api/login-safe");
+    });
+  }
+
+  const dangerousForm = document.getElementById("dangerousLoginForm");
+  if (dangerousForm) {
+    dangerousForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      handleLogin("api/login-unsafe");
+    });
+  }
+
+  const registerForm = document.getElementById("registerForm");
+  if (registerForm) {
+    registerForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      handleRegister();
+    });
+  }
+});
