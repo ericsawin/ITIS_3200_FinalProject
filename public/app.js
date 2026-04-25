@@ -13,15 +13,15 @@ async function handleLogin(endpoint) {
 
   if (response.ok) {
     localStorage.setItem("username", data.user.username);
-    window.location.href = "/dashboard.html";
-  } else {
-    loginMessage.textContent = data.message;
   }
+
+  loginMessage.textContent = data.message;
 }
 
 async function handleRegister() {
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
+  const registerMessage = document.getElementById("message");
 
   const response = await fetch("/api/register", {
     method: "POST",
@@ -30,6 +30,8 @@ async function handleRegister() {
   });
 
   const data = await response.json();
+
+  registerMessage.textContent = data.message;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
