@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (dangerousForm) {
     dangerousForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      handleLogin("api/login-unsafe");
+      handleLogin("api/login-dangerous");
     });
   }
 
