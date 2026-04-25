@@ -97,7 +97,7 @@ app.post("/api/login-safe", async (req, res) => {
 
 // Login (Vulnerable to SQLi)
 app.get("/dangerous-login", (req, res) => {
-  res.sendFile(path.join(__dirname), "public", "dangerous-login.html");
+  res.sendFile(path.join(__dirname, "public", "dangerous-login.html"));
 });
 
 app.post("/api/login-dangerous", async (req, res) => {
