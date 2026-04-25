@@ -92,7 +92,6 @@ app.get("/safe-login", (req, res) => {
 });
 
 app.post("/api/login-safe", async (req, res) => {
-  alert("Safe login attempted.");
   const { username, password } = req.body;
 
   db.get("SELECT * FROM users WHERE USERNAME = ?", [username], (err, user) => {
@@ -104,7 +103,6 @@ app.post("/api/login-safe", async (req, res) => {
       return res.status(401).json({ message: "Invalid username or password." });
     }
 
-    alert("Safe login successful.");
     res.json({
       message: "Login successful.",
       user: {
