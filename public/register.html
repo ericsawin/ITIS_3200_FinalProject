@@ -1,27 +1,38 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
+  <head>
     <title>Register</title>
-</head>
-<body>
+  </head>
+  <body>
     <script src="app.js"></script>
-    <form id="registerForm" action="/api/register" method="POST">
-        <h1>Register</h1>
-  
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required placeholder="Enter your username">
+    <form id="registerForm">
+      <h1>Register</h1>
 
-        <label for="psw">Password:</label>
-        <input type="password" id="password" name="password" required minlength="8">
+      <label for="username">Username:</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        required
+        placeholder="Enter your username"
+      />
 
-        <button type="submit">Register</button>
+      <label for="psw">Password:</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        required
+        minlength="8"
+      />
+
+      <button type="submit">Register</button>
     </form>
 
     <div id="message"></div>
 
     <p>
-        <a href="index.html">Back to Start</a>
+      <a href="index.html">Back to Start</a>
     </p>
-    
-</body>
+  </body>
 </html>
