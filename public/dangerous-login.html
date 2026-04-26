@@ -4,7 +4,8 @@
     <title>Register</title>
 </head>
 <body>
-    <form action="/submit-login" method="POST">
+    <script src="app.js"></script>
+    <form id="gangerousLoginForm" action="/api/dangerous-login" method="POST">
         <h1>Login</h1>
   
         <label for="username">Username:</label>
@@ -13,8 +14,10 @@
         <label for="psw">Password:</label>
         <input type="password" id="password" name="password" required minlength="8">
 
-        <button type="submit">Register</button>
+        <button type="submit">Login</button>
     </form>
+
+    <div id="message"></div>
 
     <p>
         <a href="dangerous-login.html">Back to Start</a>

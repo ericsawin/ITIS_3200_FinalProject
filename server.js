@@ -20,6 +20,8 @@ const port = 3000;
 
 // used in expressJs servers to parse JSON and put it in the request body as a JS object
 app.use(express.json());
+// decodes form submission html
+app.use(express.urlencoded({ extended: true }));
 // serve our `/public' directory as static assets`
 app.use(express.static(path.join(__dirname, "public")));
 

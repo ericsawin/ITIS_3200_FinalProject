@@ -4,7 +4,8 @@
     <title>Register</title>
 </head>
 <body>
-    <form action="/submit-registration" method="POST">
+    <script src="app.js"></script>
+    <form id="registerForm" action="/api/register" method="POST">
         <h1>Register</h1>
   
         <label for="username">Username:</label>
@@ -15,6 +16,8 @@
 
         <button type="submit">Register</button>
     </form>
+
+    <div id="message"></div>
 
     <p>
         <a href="index.html">Back to Start</a>

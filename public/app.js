@@ -4,7 +4,7 @@ async function handleLogin(endpoint) {
   const loginMessage = document.getElementById("message");
 
   const response = await fetch(endpoint, {
-    method: POST,
+    method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, password }),
   });
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (dangerousForm) {
     dangerousForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      handleLogin("api/login-dangerous");
+      handleLogin("/api/login-dangerous");
     });
   }
 
