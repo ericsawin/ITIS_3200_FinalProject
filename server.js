@@ -39,6 +39,11 @@ const db = new sqlite3.Database("./demo.db");
 // create our users table
 // passwords are stored as plaintext to show how data exfil can be exacerbated without proper data obfuscation
 db.serialize(() => {
+  // delete any old artifacts
+  db.run("DROP TABLE IF EXISTS users");
+  console.log("Database deleted.");
+
+  // create fresh table
   db.run(`
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -46,6 +51,16 @@ db.serialize(() => {
       password TEXT NOT NULL
     )
   `);
+  console.log("users table created.");
+
+  db.run(`
+    INSERT INTO users (username, password)
+    VALUES
+      ('admin', 'Admin123!'),
+      ('alice', 'Password123!'),
+      ('bob', 'MySecretPassword321')
+  `);
+  console.log("Seed data injected.");
 });
 
 // ==============================
@@ -118,7 +133,41 @@ app.get("/dangerous-login", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "dangerous-login.html"));
 });
 
-app.post("/api/login-dangerous", async (req, res) => {});
+app.post("/api/login-dangerous", async (req, res) => {
+  const { username, password } = req.body;
+
+  const sql = `
+SELECT id, username, password FROM users
+WHERE username = '${username}'
+AND password = '${password}'
+`;
+
+  console.log("sql:");
+  console.log(sql);
+
+  db.get(sql, (err, user) => {
+    if (err) {
+      return res.status(500).json({
+        message: "Something went wrong.",
+        error: err.message,
+      });
+    }
+
+    if (!user) {
+      return res.status(401).json({
+        message: "Invalid username or password.",
+      });
+    }
+
+    res.json({
+      message: "Unsafe login successful.",
+      user: {
+        id: user.id,
+        username: user.username,
+      },
+    });
+  });
+});
 
 // ==============================
 // Start your engines
