@@ -145,7 +145,9 @@ AND password = '${password}'
   console.log("sql:");
   console.log(sql);
 
-  db.get(sql, (err, user) => {
+  // db.all() call is used to demonstrate all rows being returned
+  // db.get() call would only limit the number of rows returned, not protect from injection
+  db.all(sql, (err, users) => {
     if (err) {
       return res.status(500).json({
         message: "Something went wrong.",
@@ -153,7 +155,7 @@ AND password = '${password}'
       });
     }
 
-    if (!user) {
+    if (!users || users.length == 0) {
       return res.status(401).json({
         message: "Invalid username or password.",
       });
@@ -162,8 +164,7 @@ AND password = '${password}'
     res.json({
       message: "Unsafe login successful.",
       user: {
-        id: user.id,
-        username: user.username,
+        users: users,
       },
     });
   });
