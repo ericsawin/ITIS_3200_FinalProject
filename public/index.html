@@ -11,6 +11,15 @@
     <p>Log in or sign up to get started</p>
 
     <p>
+      This project demonstrates SQL Injection attacks and how to prevent them.
+    </p>
+
+    <p>
+      The vulnerable login allows attackers to bypass authentication using malicious input.
+      The safe login uses prepared statements to prevent this attack.
+    </p>
+
+    <p>
       <a href="safe-login.html">Login (Safe)</a>
     </p>
 
@@ -21,6 +30,13 @@
     <p>
       <a href="register.html">Sign up</a>
     </p>
+
+    <p>
+      To test the attack:
+      <br>
+      Username: anything
+      <br>
+      Password: ' OR '1'='1
+    </p>
   </body>
 </html>
-
