@@ -112,3 +112,18 @@ a:hover {
 .danger-title {
   color: red;
 }
+
+.backtostart {
+  position: absolute;
+  bottom: 25%;
+}
+
+.info {
+  position: absolute;
+  top: 15%;
+}
+
+.instructions {
+  position: absolute;
+  top: 20%;
+}

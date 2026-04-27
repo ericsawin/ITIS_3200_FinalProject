@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <title>Safe Login</title>
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <form id="safeLoginForm">
@@ -30,12 +31,12 @@
 
     <pre id="message"></pre>
 
-    <p>
+    <p class="info">
       This login is protected using prepared statements.
       SQL injection attacks will not work here.
     </p>
 
-    <p>
+    <p class="instructions">
       Try this attack:
       <br>
       Username: anything
@@ -45,7 +46,7 @@
       This should FAIL.
     </p>
 
-    <p>
+    <p class="backtostart">
       <a href="index.html">Back to Start</a>
     </p>
 
