@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Register</title>
+    <title>Safe Login</title>
   </head>
   <body>
-    <form id="registerForm">
-      <h1>Register</h1>
+    <form id="safeLoginForm">
+      <h1 class="safe-title">Safe Login</h1>
 
       <label for="username">Username:</label>
       <input
@@ -25,10 +25,25 @@
         minlength="8"
       />
 
-      <button type="submit">Register</button>
+      <button type="submit">Login</button>
     </form>
 
     <pre id="message"></pre>
+
+    <p>
+      This login is protected using prepared statements.
+      SQL injection attacks will not work here.
+    </p>
+
+    <p>
+      Try this attack:
+      <br>
+      Username: anything
+      <br>
+      Password: ' OR '1'='1
+      <br>
+      This should FAIL.
+    </p>
 
     <p>
       <a href="index.html">Back to Start</a>
