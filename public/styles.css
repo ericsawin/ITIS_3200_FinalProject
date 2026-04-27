@@ -1,12 +1,11 @@
 /* Reset */
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-
 }
 
-/* Body */ 
+/* Body */
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(to right, #eef2f3, #dfe9f3);
@@ -50,7 +49,8 @@ input {
   font-size: 14px;
   transition: border 0.2s;
 }
-input: focus {
+
+input:focus {
   border-color: #007bff;
   outline: none;
 }
@@ -80,10 +80,10 @@ button:hover {
   font-weight: bold;
   font-size: 14px;
 }
- /* Success / Error colors */
+
+/* Success / Error colors */
 .success {
   color: green;
-
 }
 
 .error {
@@ -104,11 +104,11 @@ a:hover {
   text-decoration: underline;
 }
 
+/* Titles */
 .safe-title {
-  color:green;
+  color: green;
 }
 
 .danger-title {
   color: red;
 }
-  
